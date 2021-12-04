@@ -7,11 +7,6 @@ import (
 	"strings"
 )
 
-type Movement struct {
-	Direction string
-	Amount    int
-}
-
 func Run(part int, test bool) error {
 	log.Printf("Running Day 3 part %d", part)
 	dataSource := "day3/real.txt"
