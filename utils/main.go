@@ -34,6 +34,18 @@ func StringsToInts(content []string) []int64 {
 	return vals
 }
 
+func StringsToIntsNormal(content []string) []int {
+	var vals []int
+	for _, val := range content {
+		trimmed := strings.TrimSpace(val)
+		if trimmed != "" {
+			intVal, _ := strconv.Atoi(trimmed)
+			vals = append(vals, intVal)
+		}
+	}
+	return vals
+}
+
 func SetField(v interface{}, name string, value string) error {
 	// v must be a pointer to a struct
 	rv := reflect.ValueOf(v)
@@ -63,4 +75,18 @@ func SetField(v interface{}, name string, value string) error {
 	// Set the value
 	fv.SetString(value)
 	return nil
+}
+
+func FindMinAndMax(a []int) (min int, max int) {
+	min = a[0]
+	max = a[0]
+	for _, value := range a {
+		if value < min {
+			min = value
+		}
+		if value > max {
+			max = value
+		}
+	}
+	return min, max
 }
