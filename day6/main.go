@@ -1,8 +1,10 @@
 package day6
 
 import (
+	"2021/utils"
 	"fmt"
 	"log"
+	"strings"
 )
 
 func Run(part int, test bool) error {
@@ -18,11 +20,12 @@ func Run(part int, test bool) error {
 }
 
 func part1(dataSource string) error {
-	//allData := utils.ReadInputFile(dataSource)
-	//pieces := strings.Split(allData, ",")
-	//numbers := utils.StringsToIntsNormal(pieces)
-	numbers := []int{5}
-	days := 40
+	allData := utils.ReadInputFile(dataSource)
+	pieces := strings.Split(allData, ",")
+	numbers := utils.StringsToIntsNormal(pieces)
+	//numbersOrg := []int{1, 2, 3, 4, 5, 6}
+	//numbersOrg := []int{5}
+	days := 80
 
 	for i := 0; i < days; i++ {
 		addNumbers := 0
@@ -46,12 +49,13 @@ func part1(dataSource string) error {
 }
 
 func part2(dataSource string) error {
-	//allData := utils.ReadInputFile(dataSource)
-	//pieces := strings.Split(allData, ",")
-	//orgNumbers := utils.StringsToIntsNormal(pieces)
-	orgNumbers := []int{1, 2, 3, 4, 5, 6}
+	allData := utils.ReadInputFile(dataSource)
+	pieces := strings.Split(allData, ",")
+	orgNumbers := utils.StringsToIntsNormal(pieces)
+	//orgNumbers := []int{1, 2, 3, 4, 5, 6}
+	//orgNumbers := []int{5}
 	totalFish := 0
-	days := 40
+	days := 256
 
 	cacheAnswer := map[int]int{}
 
@@ -63,16 +67,19 @@ func part2(dataSource string) error {
 			additions := 1 + int((days-orgNumber)/7)
 			//fmt.Printf("Fish %2d: %2d time for %2d additions \n", fishNumber, orgNumber, additions)
 			for i := 0; i < additions; i++ {
-				fishCount += 1
 				currentDay := orgNumber + (i * 7)
-				//fmt.Printf("+ add %d fish on day %d p1 \n", 1, currentDay)
+				if currentDay >= days {
+					continue
+				}
+				fishCount += 1
+				//fmt.Printf("  + add %d fish on day %d p0 \n", 1, currentDay)
 				//fmt.Printf("  Added fish on day: %2d\n", currentDay)
 				children := calcChildren(currentDay, 1, days)
 				//fmt.Printf("    Added fish on: %2d children: %2d \n", currentDay, children)
 				fishCount += children
 				//fmt.Printf(" %2d fish added \n", fishCount)
 			}
-			fmt.Printf(" %3d fish added %d \n", fishNumber, fishCount)
+			fmt.Printf(" %3d fish added %d \n", fishNumber+1, fishCount)
 			totalFish += fishCount
 			cacheAnswer[orgNumber] = fishCount
 		} else {
@@ -88,7 +95,7 @@ func part2(dataSource string) error {
 func calcChildren(currentDay int, level int, totalDays int) int {
 	level += 1
 	//spaces := make([]string, level*2)
-	//padding := strings.Join(spaces, " ")
+	//padding := strings.Join(spaces, "-")
 	children := 0
 	additionDay := currentDay + 9
 	if additionDay < totalDays {
