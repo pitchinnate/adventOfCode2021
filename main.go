@@ -6,6 +6,7 @@ import (
 	"2021/day3"
 	"2021/day4"
 	"2021/day5"
+	"2021/day6"
 	"flag"
 	"log"
 )
@@ -33,6 +34,8 @@ func main() {
 		err = day4.Run(runPart, test)
 	case 5:
 		err = day5.Run(runPart, test)
+	case 6:
+		err = day6.Run(runPart, test)
 	}
 
 	if err != nil {

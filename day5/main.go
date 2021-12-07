@@ -73,7 +73,7 @@ func (l *Line) GetPoints(includeDiagonals bool) []Point {
 }
 
 func Run(part int, test bool) error {
-	log.Printf("Running Day 4 part %d", part)
+	log.Printf("Running Day 5 part %d", part)
 	dataSource := "day5/real.txt"
 	if test {
 		dataSource = "day5/test.txt"
